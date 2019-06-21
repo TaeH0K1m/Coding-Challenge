@@ -4,6 +4,14 @@
     input: [2, 4, 1, 6, 5, 40, -1]
     output: (4, 5)
 
+    0. seen (list): store element that seen
+
+    1. loop through the given list
+    2. check the number that multiply to 20 with each element
+    3. find the number is in the seen elements
+    4. if there is no, store the current element to the list
+    5. if there is, return the two number that makes 20
+
 """
 
 
@@ -11,24 +19,34 @@ def multiply_to_twenty(list):
     """ Find two integers from the given list that multiply to 20
 
     Args:
-        list( list of int)
+        list (list of int)
 
     Returns:
         num1 (int): integer that multiply to 20 with num2
         num2 (int): integer that multiply to 20 with num1
     """
 
-    num1 = 0
-    num2 = 0
+    seen = []
 
-    for i in list:
-        for j in list:
-            if i != j:
-                if (i*j) == 20:
-                    num1 = i
-                    num2 = j
+    for elem in list:
+        if what_make_twenty_with(elem) in seen:
+            return elem, what_make_twenty_with(elem)
+        else:
+            seen.append(elem)
+    return 0, 0
 
-    return num1, num2
+def what_make_twenty_with(num):
+    """ Helper function to find the number that makes 20 with input value
+
+    Args:
+        num (int)
+
+    Returns:
+        int: integer that makes 20 with given interger
+    """
+
+    return 20.0/num
+
 
 # Test
 list1 = [2, 4, 1, 6, 5, 40, -1];
