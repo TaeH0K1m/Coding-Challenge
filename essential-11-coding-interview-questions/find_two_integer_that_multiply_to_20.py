@@ -1,4 +1,5 @@
-"""
+""" Find Two Integer That Multiply To 20
+
     Example:
 
     input: [2, 4, 1, 6, 5, 40, -1]
@@ -24,6 +25,9 @@ def multiply_to_twenty(list):
     Returns:
         num1 (int): integer that multiply to 20 with num2
         num2 (int): integer that multiply to 20 with num1
+
+    Time Complexity:
+        O(n)
     """
 
     seen = []
