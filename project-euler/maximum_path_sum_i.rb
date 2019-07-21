@@ -43,37 +43,17 @@ TRIANGLE.split("\n").each do |row|
   triangle << row.split(" ")
 end
 
-## Wrong approach
-# 1. iterate through triangle
-# 2. check triangle[col], triangle[col+1]
-# 3. find the bigger value in the row & save the col number(index)
-# 4. add the value to sum
-
-#print triangle
-#puts " "
-=begin
+#dynamic programing
 def maximum_path_sum(triangle)
-  sum = 0
-  col = 0
-
-  for row in (0...triangle.length)
-    if triangle[row][col + 1].nil?
-      sum += triangle[row][col].to_i
-    else
-      if triangle[row][col].to_i > triangle[row][col + 1].to_i
-        sum += triangle[row][col].to_i
-      else
-        sum += triangle[row][col + 1].to_i
-        col = col + 1
-      end
+  for i in (0...triangle.length-1).reverse_each # bottom up
+    for j in (0..i)
+      max = [triangle[i + 1][j].to_i, triangle[i + 1][j + 1].to_i].max
+      triangle[i][j] = triangle[i][j].to_i + max # memoized
+      #print triangle[i][j].to_s + " "
     end
+    #puts " "
   end
-
-  return sum
-end
-=end
-
-def maximum_path_sum(triangle)
+  return triangle[0][0]
 end
 
 puts maximum_path_sum(triangle)
