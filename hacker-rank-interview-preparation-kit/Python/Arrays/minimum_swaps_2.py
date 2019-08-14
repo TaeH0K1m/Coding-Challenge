@@ -26,27 +26,39 @@
 
         3 <--> 4
         1 2 3 4 5
-"""
-def find(arr, pos):
-    for i in range(len(arr)):
-        if pos == arr[i]:
-            return i
-    return -1
 
-def swap(arr, i, index):
+    *** # OPTIMIZE:
+    O(n2) --> O(n)
+    1. use dictionary (key: value - value: position)
+"""
+def find(posInfo, val):
+    return posInfo[val]
+
+def swap(arr, posInfo, pos, index):
+    i = pos - 1
+    j = index - 1
     temp = arr[i]
-    arr[i] = arr[index]
-    arr[index] = temp
-    return arr
+    arr[i] = arr[j]
+    arr[j] = temp
+    #
+    posInfo[arr[i]] = pos
+    posInfo[arr[j]] = index
+    return arr, posInfo
 
 def minimumSwaps(arr):
     result = 0
+    posInfo = {}
+    for i in range(len(arr)):
+        pos = i + 1
+        val = arr[i]
+        posInfo[val] = pos
+    #
     for i in range(len(arr)):
         pos = i + 1
         val = arr[i]
         if val != pos:
-            index = find(arr, pos)
-            arr = swap(arr, i, index)
+            index = find(posInfo, pos)
+            arr, posInfo = swap(arr, posInfo, pos, index)
             result += 1
     return result
 
