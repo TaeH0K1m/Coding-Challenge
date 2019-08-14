@@ -34,7 +34,7 @@ def minimumBribes(q):
         val = q[i] - 1
         if val - pos > 2:
             return "Too chaotic"
-        for j in range(0, pos):
+        for j in range(max(0, val - 1), pos):
             if q[j] > val:
                 swaps += 1
     return swaps
