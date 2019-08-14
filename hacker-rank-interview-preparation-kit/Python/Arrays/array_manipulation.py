@@ -29,34 +29,54 @@
     [3  3  3 10 10  8  8  8  1  0]       6  9  1
 
     max: 10
+    *** # OPTIMIZE:
+    O(n * m) --> O(n + m)
+        0. prefix sum algorithm
+        1. create n+1 size array of zeros
+        2. perform each query
+            - arr[a-1] += k
+            - arr[b] -= k
+        3. find max
+
+    example:
+
+    arrayManipulation(10, [[1,5,3],[4,8,7],[6,9,1]])
+
+     0  1  2  3  4  5  6  7  8  9  10      index
+     1  2  3  4  5  6  7  8  9  10 11      position
+    [0  0  0  0  0  0  0  0  0  0  0]      a  b  k
+    [3  0  0  0  0 -3  0  0  0  0  0]      1  5  3
+    [3  0  0  0  7 -3  0  0 -7  0  0]      4  8  7
+    [3  0  0  0  7 -3  1  0 -7  0 -1]      6  9  1
 """
 
 def createArray(n):
-    arr = []
-    for i in range(n):
-        arr.append(0)
-    return arr
+    return [0]*n
 
 def performQuery(arr, query):
     a = query[0]
     b = query[1]
     k = query[2]
-    for i in range(a-1, b):
-        arr[i] += k
+
+    arr[a-1] += k
+    arr[b] -= k
+
     return arr
 
 def findMax(arr):
-    max = None
+    max = 0
+    sum = 0
+
     for i in arr:
-        if max == None or max < i:
-            max = i
+        sum += i
+        if max < sum:
+            max = sum
     return max
 
 def arrayManipulation(n, queries):
-    arr = createArray(n)
+    arr = createArray(n+1)
     for query in queries:
         arr = performQuery(arr, query)
-
     return findMax(arr)
 
 
